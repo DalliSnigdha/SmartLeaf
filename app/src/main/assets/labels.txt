@@ -1,0 +1,8 @@
+Pepperbell_Bacterial_Spot
+Pepperbell__Healthy
+Potato_Early_Blight
+Potato_Healthy
+Potato_Late_Blight
+Tomato_Early_Blight
+Tomato_Healthy
+Tomato_Late_Blight

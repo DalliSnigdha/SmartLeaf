@@ -1,0 +1,552 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F8FAF8"> <!-- Premium soft off-white background -->
+
+    <!-- SHARED TOP APP BAR -->
+    <LinearLayout
+        android:id="@+id/topBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingHorizontal="24dp"
+        android:paddingVertical="20dp"
+        android:gravity="center_vertical"
+        android:background="@android:color/transparent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Welcome to"
+                android:textColor="#888888"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textAllCaps="true"
+                android:letterSpacing="0.05"/>
+            <TextView
+                android:id="@+id/tvAppTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SmartLeaf"
+                android:textColor="#134D18"
+                android:textSize="32sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switchLanguage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="తెలుగు "
+            android:textColor="#1B5E20"
+            android:textStyle="bold"
+            android:theme="@style/Theme.AppCompat.Light"/>
+    </LinearLayout>
+
+    <!-- MAIN CONTENT AREA -->
+    <!-- Notice constraintBottom_toBottomOf="parent" so it scrolls BEHIND the floating nav -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/topBarLayout"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <!-- SCREEN 1: THE DASHBOARD (HOME) -->
+        <!-- paddingBottom 120dp ensures the last item isn't hidden by the floating nav pill -->
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/layoutDashboard"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingHorizontal="20dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="120dp"
+            android:clipToPadding="false"
+            android:visibility="visible">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- DEEP GREEN HERO CARD -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardBackgroundColor="#134D18"
+                    app:cardCornerRadius="32dp"
+                    app:cardElevation="12dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="28dp">
+
+                        <TextView
+                            android:id="@+id/tvPlantDoctorTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="AI Crop Analysis"
+                            android:textColor="#FFFFFF"
+                            android:textSize="26sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvPlantDoctorDesc"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="Snap a photo of any leaf to identify diseases and get instant treatment remedies."
+                            android:textColor="#A5D6A7"
+                            android:textSize="15sp"
+                            android:lineSpacingExtra="6dp"/>
+
+                        <Button
+                            android:id="@+id/btnScanLeaf"
+                            android:layout_width="match_parent"
+                            android:layout_height="65dp"
+                            android:layout_marginTop="24dp"
+                            android:backgroundTint="#FFFFFF"
+                            android:text="Scan Leaf"
+                            android:textColor="#134D18"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            app:cornerRadius="20dp"
+                            android:elevation="0dp"/>
+
+                        <Button
+                            android:id="@+id/btnGalleryDash"
+                            android:layout_width="match_parent"
+                            android:layout_height="65dp"
+                            android:layout_marginTop="12dp"
+                            android:backgroundTint="#26702D"
+                            android:text="Upload from Gallery"
+                            android:textColor="#FFFFFF"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            app:cornerRadius="20dp"
+                            android:elevation="0dp"/>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- RECENT DIAGNOSES SECTION -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginBottom="8dp"
+                    android:orientation="horizontal"
+                    android:gravity="bottom">
+
+                    <TextView
+                        android:id="@+id/tvRecentDiagnoses"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Recent Diagnoses"
+                        android:textColor="#333333"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <!-- History Recycler -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvHistory"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:nestedScrollingEnabled="false" />
+
+                <!-- Beautiful Empty State -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:layout_marginTop="30dp">
+
+                    <ImageView
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
+                        android:src="@android:drawable/ic_menu_camera"
+                        app:tint="#DDDDDD" />
+
+                    <TextView
+                        android:id="@+id/tvNoHistory"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="No recent scans.\nScan a leaf to get started!"
+                        android:textAlignment="center"
+                        android:textSize="15sp"
+                        android:textColor="#AAAAAA" />
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <!-- SCREEN 2: THE CAMERA SCANNER & RESULT -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutScanner"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#000000"
+            android:visibility="gone">
+
+            <androidx.camera.view.PreviewView
+                android:id="@+id/viewFinder"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toTopOf="@+id/cameraControls"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/cameraControls"
+                android:layout_width="match_parent"
+                android:layout_height="140dp"
+                android:background="#000000"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <!-- Oversized modern capture button -->
+                <Button
+                    android:id="@+id/btnCapturePhoto"
+                    android:layout_width="85dp"
+                    android:layout_height="85dp"
+                    android:backgroundTint="#FFFFFF"
+                    app:cornerRadius="45dp"
+                    app:strokeWidth="6dp"
+                    app:strokeColor="#55FFFFFF"/>
+            </LinearLayout>
+
+            <!-- SCANNER RESULTS OVERLAY -->
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/scannerDashboard"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fillViewport="true"
+                android:background="#F8FAF8"
+                android:visibility="gone">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/ivCapturedImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="480dp"
+                        android:scaleType="centerCrop"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <!-- Dark Gradient Overlay for text readability -->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="250dp"
+                        android:background="#99000000"
+                        app:layout_constraintBottom_toBottomOf="@+id/ivCapturedImage" />
+
+                    <TextView
+                        android:id="@+id/tvDisease"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="24dp"
+                        android:layout_marginBottom="60dp"
+                        android:text="Analyzing..."
+                        android:textColor="#FFFFFF"
+                        android:textSize="36sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/ivCapturedImage" />
+
+                    <!-- THE BOTTOM SHEET EFFECT -->
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="-40dp"
+                        app:cardBackgroundColor="#FFFFFF"
+                        app:cardCornerRadius="40dp"
+                        app:cardElevation="24dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/ivCapturedImage"
+                        app:layout_constraintVertical_bias="0.0">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:paddingHorizontal="32dp"
+                            android:paddingBottom="40dp">
+
+                            <!-- Visual Drag Handle -->
+                            <androidx.cardview.widget.CardView
+                                android:layout_width="48dp"
+                                android:layout_height="6dp"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_marginTop="16dp"
+                                android:layout_marginBottom="24dp"
+                                app:cardBackgroundColor="#E0E0E0"
+                                app:cardCornerRadius="3dp"
+                                app:cardElevation="0dp"/>
+
+                            <TextView
+                                android:id="@+id/tvConfidence"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="High"
+                                android:textColor="#1B5E20"
+                                android:textSize="32sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tvRemedy"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="12dp"
+                                android:text="Please wait while the AI processes..."
+                                android:textColor="#555555"
+                                android:textSize="16sp"
+                                android:lineSpacingExtra="6dp"/>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="32dp"
+                                android:orientation="horizontal">
+                                <Button android:id="@+id/btnRetake" android:layout_width="0dp" android:layout_height="60dp" android:layout_weight="1" android:text="Retake" android:backgroundTint="#F0F5F1" android:textColor="#134D18" android:textStyle="bold" app:cornerRadius="20dp" />
+                                <Button android:id="@+id/btnSpeak" android:layout_width="0dp" android:layout_height="60dp" android:layout_marginStart="12dp" android:layout_weight="1" android:text="Read Aloud" android:backgroundTint="#2E7D32" android:textColor="#FFFFFF" android:textStyle="bold" app:cornerRadius="20dp" />
+                            </LinearLayout>
+
+                            <Button android:id="@+id/btnDownload" android:layout_width="match_parent" android:layout_height="60dp" android:layout_marginTop="12dp" android:text="Save PDF Report" android:backgroundTint="#000000" android:textColor="#FFFFFF" android:textStyle="bold" app:cornerRadius="20dp" />
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.core.widget.NestedScrollView>
+
+            <!-- Sleek glassy back button -->
+            <Button android:id="@+id/btnCloseScanner" android:layout_width="wrap_content" android:layout_height="50dp" android:layout_margin="24dp" android:text="← Back" android:backgroundTint="#66000000" android:textColor="#FFFFFF" app:cornerRadius="25dp" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- SCREEN 3: REMEDIES ENCYCLOPEDIA TAB -->
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/layoutRemedies"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingHorizontal="20dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="120dp"
+            android:clipToPadding="false"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvEncyclopediaTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Encyclopedia"
+                    android:textColor="#1B5E20"
+                    android:textSize="32sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="24dp"
+                    android:text="Browse common plant diseases and their recommended treatments."
+                    android:textColor="#666666"
+                    android:textSize="15sp" />
+
+                <!-- VIBRANT PASTEL RED CARD -->
+                <androidx.cardview.widget.CardView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="16dp" app:cardBackgroundColor="#FFEBEE" app:cardCornerRadius="24dp" app:cardElevation="0dp">
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="24dp">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Tomato Late Blight" android:textColor="#B71C1C" android:textStyle="bold" android:textSize="20sp"/>
+                        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="Highly contagious! Remove and destroy infected plants immediately. Apply protective copper fungicides." android:textColor="#D32F2F" android:lineSpacingExtra="4dp"/>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- VIBRANT PASTEL ORANGE CARD -->
+                <androidx.cardview.widget.CardView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="16dp" app:cardBackgroundColor="#FFF3E0" app:cardCornerRadius="24dp" app:cardElevation="0dp">
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="24dp">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Potato Early Blight" android:textColor="#E65100" android:textStyle="bold" android:textSize="20sp"/>
+                        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="Remove affected leaves. Apply an organic copper fungicide and ensure proper crop rotation next season." android:textColor="#EF6C00" android:lineSpacingExtra="4dp"/>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- VIBRANT PASTEL PURPLE CARD -->
+                <androidx.cardview.widget.CardView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="16dp" app:cardBackgroundColor="#F3E5F5" app:cardCornerRadius="24dp" app:cardElevation="0dp">
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="24dp">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Pepperbell Bacterial Spot" android:textColor="#4A148C" android:textStyle="bold" android:textSize="20sp"/>
+                        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="Remove infected leaves and avoid overhead watering. Apply copper-based bactericides to prevent spreading." android:textColor="#6A1B9A" android:lineSpacingExtra="4dp"/>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <!-- SCREEN 4: SETTINGS TAB -->
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/layoutSettings"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingHorizontal="20dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="120dp"
+            android:clipToPadding="false"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvSettingsTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Settings"
+                    android:textColor="#1B5E20"
+                    android:textSize="32sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="24dp"/>
+
+                <!-- iOS Style Grouped Settings Card -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    app:cardBackgroundColor="#FFFFFF"
+                    app:cardCornerRadius="24dp"
+                    app:cardElevation="8dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="24dp">
+
+                        <TextView
+                            android:id="@+id/tvDataMgmtTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Data Management"
+                            android:textColor="#111111"
+                            android:textStyle="bold"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:text="Clear your local diagnosis history and permanently delete saved thumbnails from this device."
+                            android:textColor="#666666"
+                            android:textSize="14sp"
+                            android:lineSpacingExtra="4dp"/>
+
+                        <Button
+                            android:id="@+id/btnClearHistory"
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:layout_marginTop="20dp"
+                            android:backgroundTint="#FFEBEE"
+                            android:text="Clear Scan History"
+                            android:textColor="#D32F2F"
+                            android:textStyle="bold"
+                            app:cornerRadius="16dp"
+                            android:elevation="0dp"/>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:text="App Version 2.0.0\nPowered by Edge AI (TensorFlow Lite)"
+                    android:textAlignment="center"
+                    android:textColor="#AAAAAA"
+                    android:textSize="13sp"
+                    android:lineSpacingExtra="4dp"/>
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+    </FrameLayout>
+
+    <!-- THE CRAZY FLOATING NAVIGATION PILL -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bottomNavLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <!-- The White Glassy Pill -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginBottom="24dp"
+            app:cardBackgroundColor="#FFFFFF"
+            app:cardCornerRadius="37.5dp"
+            app:cardElevation="24dp"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="5">
+
+                <LinearLayout android:id="@+id/navHome" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:orientation="vertical" android:clickable="true" android:focusable="true" android:background="?attr/selectableItemBackgroundBorderless">
+                    <ImageView android:layout_width="26dp" android:layout_height="26dp" android:src="@android:drawable/ic_menu_view" app:tint="#134D18"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:text="Home" android:textSize="11sp" android:textColor="#134D18" android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout android:id="@+id/navHistory" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:orientation="vertical" android:clickable="true" android:focusable="true" android:background="?attr/selectableItemBackgroundBorderless">
+                    <ImageView android:layout_width="26dp" android:layout_height="26dp" android:src="@android:drawable/ic_menu_recent_history" app:tint="#AAAAAA"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:text="History" android:textSize="11sp" android:textColor="#AAAAAA" android:textStyle="normal" />
+                </LinearLayout>
+
+                <!-- Invisible spacer for the overlapping FAB to sit in -->
+                <View android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1"/>
+
+                <LinearLayout android:id="@+id/navRemedies" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:orientation="vertical" android:clickable="true" android:focusable="true" android:background="?attr/selectableItemBackgroundBorderless">
+                    <ImageView android:layout_width="26dp" android:layout_height="26dp" android:src="@android:drawable/ic_menu_info_details" app:tint="#AAAAAA"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:text="Remedies" android:textSize="11sp" android:textColor="#AAAAAA" android:textStyle="normal" />
+                </LinearLayout>
+
+                <LinearLayout android:id="@+id/navSettings" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:orientation="vertical" android:clickable="true" android:focusable="true" android:background="?attr/selectableItemBackgroundBorderless">
+                    <ImageView android:layout_width="26dp" android:layout_height="26dp" android:src="@android:drawable/ic_menu_preferences" app:tint="#AAAAAA"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:text="Settings" android:textSize="11sp" android:textColor="#AAAAAA" android:textStyle="normal" />
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Elevated Floating Camera Icon overlapping the pill -->
+        <ImageButton
+            android:id="@+id/fabScan"
+            android:layout_width="66dp"
+            android:layout_height="66dp"
+            android:layout_marginBottom="46dp"
+            android:background="@drawable/fab_background"
+            android:elevation="32dp"
+            android:src="@android:drawable/ic_menu_camera"
+            app:tint="#FFFFFF"
+            android:scaleType="centerInside"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
